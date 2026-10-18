@@ -2,7 +2,7 @@
 
 Браузерная слот игра на SVG. Крутите треугольники, собирайте одинаковые цифры в центре и получайте множители.
 
-**[🎮 Играть в демо](https://andreybond77.github.io/demons-triangle/)** · **[📂 Исходный код](https://github.com/andreybond77/demons-triangle)**
+**[🎮 Играть в демо](https://andreybond77.github.io/DEMON-S-TRIANGLE /)** · **[📂 Исходный код](https://github.com/andreybond77/demons-triangle)**
 
 ---
 
