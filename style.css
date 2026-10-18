@@ -1,0 +1,471 @@
+/* ============================================
+   🔺 Demon's Triangle — стили
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: radial-gradient(circle at 50% 0%, #2b1055, #000 70%);
+  color: #fff;
+  padding: 20px;
+}
+
+/* ============================================
+   КОРПУС
+   ============================================ */
+.machine {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 20% 100%, rgba(255, 80, 0, 0.55) 0%, rgba(255, 80, 0, 0) 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(255, 140, 0, 0.45) 0%, rgba(255, 140, 0, 0) 60%),
+    radial-gradient(ellipse at 50% 0%, rgba(120, 20, 60, 0.35) 0%, rgba(120, 20, 60, 0) 60%),
+    linear-gradient(145deg, #3a1c71, #1a0b2e);
+  border: 4px solid #ffcc00;
+  border-radius: 24px;
+  padding: 24px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 0 40px rgba(255, 204, 0, 0.4),
+              inset 0 0 20px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* «Лава» — медленный слой внизу */
+.machine::before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -10%;
+  height: 55%;
+  background:
+    radial-gradient(ellipse at 30% 80%, rgba(255, 120, 0, 0.55) 0%, rgba(255, 60, 0, 0.15) 45%, rgba(255, 60, 0, 0) 70%),
+    radial-gradient(ellipse at 70% 70%, rgba(255, 180, 0, 0.5) 0%, rgba(255, 120, 0, 0.2) 45%, rgba(255, 120, 0, 0) 70%),
+    radial-gradient(ellipse at 50% 100%, rgba(255, 40, 0, 0.8) 0%, rgba(255, 80, 0, 0.3) 50%, rgba(255, 80, 0, 0) 75%);
+  filter: blur(14px);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+  animation: lavaFlow 8s ease-in-out infinite alternate;
+}
+
+/* «Пена» — быстрый слой сверху лавы */
+.machine::after {
+  content: "";
+  position: absolute;
+  left: -30%;
+  right: -30%;
+  bottom: 0;
+  height: 30%;
+  background:
+    radial-gradient(ellipse at 25% 90%, rgba(255, 220, 80, 0.45) 0%, rgba(255, 140, 0, 0.15) 55%, rgba(255, 140, 0, 0) 75%),
+    radial-gradient(ellipse at 75% 95%, rgba(255, 200, 40, 0.4) 0%, rgba(255, 100, 0, 0.15) 55%, rgba(255, 100, 0, 0) 75%);
+  filter: blur(8px);
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+  animation: lavaFlow2 5s ease-in-out infinite alternate;
+}
+
+/* Контент поверх лавы */
+.machine > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes lavaFlow {
+  0%   { transform: translateX(-8%) scaleY(1); }
+  100% { transform: translateX(8%)  scaleY(1.1); }
+}
+
+@keyframes lavaFlow2 {
+  0%   { transform: translateX(6%)  scaleY(0.95); }
+  100% { transform: translateX(-6%) scaleY(1.05); }
+}
+
+/* ============================================
+   12 СТРУЕК ЛАВЫ ПО ПЕРИМЕТРУ
+   ============================================ */
+.marquee {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 24px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.marquee span {
+  position: absolute;
+  width: 6px;
+  height: 18px;
+  border-radius: 3px;
+  background: linear-gradient(180deg,
+    rgba(255, 220, 80, 0.95) 0%,
+    rgba(255, 140, 0, 0.9) 40%,
+    rgba(255, 60, 0, 0.85) 70%,
+    rgba(200, 20, 0, 0.6) 100%);
+  box-shadow:
+    0 0 8px #ff8800,
+    0 0 16px #ff4400;
+  opacity: 0.3;
+  animation: marqueeMove 3.5s linear infinite;
+}
+
+.marquee span:nth-child(1)  { top: 6px;   left: 8%;   animation-delay: 0.00s; }
+.marquee span:nth-child(2)  { top: 6px;   left: 24%;  animation-delay: 0.25s; }
+.marquee span:nth-child(3)  { top: 6px;   left: 42%;  animation-delay: 0.50s; }
+.marquee span:nth-child(4)  { top: 6px;   left: 58%;  animation-delay: 0.75s; }
+.marquee span:nth-child(5)  { top: 6px;   left: 76%;  animation-delay: 1.00s; }
+.marquee span:nth-child(6)  { top: 6px;   left: 92%;  animation-delay: 1.25s; }
+.marquee span:nth-child(7)  { bottom: 6px; left: 8%;  animation-delay: 1.50s; }
+.marquee span:nth-child(8)  { bottom: 6px; left: 24%; animation-delay: 1.75s; }
+.marquee span:nth-child(9)  { bottom: 6px; left: 42%; animation-delay: 2.00s; }
+.marquee span:nth-child(10) { bottom: 6px; left: 58%; animation-delay: 2.25s; }
+.marquee span:nth-child(11) { bottom: 6px; left: 76%; animation-delay: 2.50s; }
+.marquee span:nth-child(12) { bottom: 6px; left: 92%; animation-delay: 2.75s; }
+
+@keyframes marqueeMove {
+  0%, 100% { opacity: 0.2; transform: scaleY(0.7); }
+  50%      { opacity: 1;   transform: scaleY(1.1); }
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 18px;
+  text-shadow: 0 0 10px #ffcc00;
+  letter-spacing: 2px;
+}
+
+/* ============================================
+   ИГРОВОЕ ПОЛЕ (SVG)
+   ============================================ */
+.field-wrapper {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto 16px;
+  aspect-ratio: 150 / 135;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#field {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============================================
+   ЭЛЕМЕНТЫ ИГРОВОГО ПОЛЯ
+   ============================================ */
+
+.big-triangle {
+  fill: rgba(20, 10, 40, 0.85);
+  stroke: #ffcc00;
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+}
+
+/* ============================================
+   ПОДТРЕУГОЛЬНИКИ С ТОЧКАМИ
+   ============================================ */
+
+.sub-triangle {
+  fill: rgba(90, 25, 25, 0.75);
+  stroke: #ffcc00;
+  stroke-width: 0.35;
+  stroke-linejoin: round;
+  cursor: pointer;
+  transition: fill 0.15s, filter 0.15s;
+}
+
+.sub-triangle:hover {
+  fill: rgba(120, 35, 35, 0.85);
+  filter: drop-shadow(0 0 4px rgba(255, 204, 0, 0.6));
+}
+
+.sub-triangle.center {
+  fill: rgba(90, 25, 25, 0.9);
+  stroke: #ffaa00;
+  stroke-width: 0.4;
+  cursor: default;
+  transition: fill 0.15s, filter 0.15s;
+}
+
+.sub-triangle.center:hover {
+  fill: rgba(90, 25, 25, 0.9);
+  filter: none;
+}
+
+/* Пульсация центрального треугольника */
+.sub-triangle.center.pulse {
+  animation: centerPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes centerPulse {
+  0%, 100% {
+    fill: rgba(90, 25, 25, 0.9);
+    stroke: #ffaa00;
+    filter: drop-shadow(0 0 0 rgba(255, 170, 0, 0));
+  }
+  50% {
+    fill: rgba(140, 40, 40, 0.95);
+    stroke: #ffcc00;
+    filter: drop-shadow(0 0 8px rgba(255, 170, 0, 0.9));
+  }
+}
+
+.bisector {
+  stroke: #ffcc00;
+  stroke-width: 0.22;
+  stroke-linecap: round;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+/* ============================================
+   ТОЧКИ (вместо цифр)
+   ============================================ */
+.dot {
+  fill: #4dff88;
+  stroke: none;
+  pointer-events: none;
+  filter: drop-shadow(0 0 0.3px #000);
+}
+
+.dot.center-dot {
+  fill: #ffea00;
+  filter: drop-shadow(0 0 0.4px #000);
+}
+
+/* Подсветка выигрышных сегментов */
+.dot.center-dot.highlight {
+  animation: dotPulse 0.6s ease-in-out 3;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    fill: #ffea00;
+    filter: drop-shadow(0 0 0.4px #000);
+  }
+  50% {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 2px #ffea00) drop-shadow(0 0 4px #ffaa00);
+  }
+}
+
+/* Искры */
+.spark {
+  pointer-events: none;
+}
+
+.part-dots {
+  pointer-events: none;
+}
+
+.dots-group {
+  will-change: transform;
+  pointer-events: none;
+}
+
+.dot {
+  animation: dotAppear 0.15s ease-out;
+}
+
+@keyframes dotAppear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================
+   БОКОВЫЕ РОМБЫ
+   ============================================ */
+.side-romb {
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+}
+
+.side-romb.left-outline {
+  fill: none;
+  stroke: #6699ff;
+}
+
+.side-romb.right-outline {
+  fill: none;
+  stroke: #66cc44;
+}
+
+/* ============================================
+   ПОЛЗУНОК СТАВКИ
+   ============================================ */
+.bet-slider-line {
+  stroke: #ffffff;
+  stroke-width: 0.6;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 1px #000);
+  cursor: grab;
+}
+
+.bet-slider-line:active {
+  cursor: grabbing;
+}
+
+.bet-slider-marker {
+  fill: #ffffff;
+  stroke: #000;
+  stroke-width: 0.3;
+  filter: drop-shadow(0 0 1px #000);
+  pointer-events: none;
+}
+
+/* ============================================
+   ДЕЛЕНИЯ
+   ============================================ */
+.tick {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 0.15;
+  pointer-events: none;
+}
+
+.tick-major {
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 0.2;
+}
+
+/* ============================================
+   ТЕКСТЫ В РОМБАХ
+   ============================================ */
+.romb-text {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-weight: bold;
+  fill: #fff;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  filter: drop-shadow(0 0 1.5px #000);
+}
+
+.romb-label {
+  font-size: 2.2px;
+  fill: #ccc;
+}
+
+.romb-value {
+  font-size: 5px;
+}
+
+.romb-currency {
+  font-size: 2.8px;
+}
+
+/* ============================================
+   КЛИКАБЕЛЬНАЯ ЗОНА ЛЕВОГО РОМБА
+   ============================================ */
+.bet-hit-area {
+  fill: transparent;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+/* ============================================
+   SPIN-КНОПКИ
+   ============================================ */
+.spin-triangle {
+  fill: url(#spinGradient);
+  stroke: #8a5a00;
+  stroke-width: 0.4;
+  stroke-linejoin: round;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s, filter 0.15s, transform 0.1s;
+  transform-origin: center;
+  transform-box: fill-box;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.spin-triangle.active {
+  opacity: 1;
+  filter:
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 6px rgba(255, 234, 0, 0.9))
+    brightness(1.1);
+}
+
+.spin-triangle:hover {
+  opacity: 0.85;
+}
+
+.spin-triangle.active:hover {
+  opacity: 1;
+  filter:
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 10px rgba(255, 234, 0, 1))
+    brightness(1.15);
+}
+
+.spin-triangle:active {
+  transform: scale(0.95);
+}
+
+.spin-label {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 3.5px;
+  fill: #1a0b2e;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================
+   ИНФО-ПАНЕЛЬ
+   ============================================ */
+.info {
+  font-size: 14px;
+  color: #aaa;
+  min-height: 20px;
+  line-height: 1.5;
+}
+
+.info.win {
+  color: #4dff88;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(77, 255, 136, 0.5);
+}
+
+.info.lose {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.info.game-over {
+  color: #ff4444;
+  font-weight: bold;
+}
+
+/* ============================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ
+   ============================================ */
+@media (max-width: 700px) {
+  .machine { padding: 18px; }
+  h1 { font-size: 20px; margin-bottom: 14px; }
+  .field-wrapper { max-width: 100%; }
+  .info { font-size: 12px; }
+
+  .marquee span {
+    width: 4px;
+    height: 12px;
+  }
+}
